@@ -23,8 +23,28 @@ Check the notebook to see the complete analysis process from data exploration to
 
 ---
 
-### Technical Implementation
+### Technical Implementation Example Code
 ```python
-# Example code snippet
-from imblearn.over_sampling import SMOTE, RandomOverSampler, ADASYN
+# Import imbalace technique algorithims
+from imblearn.over_sampling import SMOTE, ADASYN
 from imblearn.under_sampling import RandomUnderSampler
+from imblearn.over_sampling import RandomOverSampler
+```
+```python
+# Oversampled
+random_state = 42
+
+ros = RandomOverSampler(random_state=random_state)
+X_res, y_res = ros.fit_resample(X_train, y_train)
+
+print('Resampled dataset shape %s' % Counter(y_res))
+
+X_train_over = X_res
+y_train_over = y_res
+X_test_over, y_test_over = X_test, y_test
+
+print("X_train_over - ",X_train_over.shape)
+print("y_train_over - ",y_train_over.shape)
+print("X_test_over - ",X_test_over.shape)
+print("y_test_over - ",y_test_over.shape)
+```
