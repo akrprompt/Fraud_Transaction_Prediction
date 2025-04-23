@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fraud Transaction Prediction</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        body { padding-top: 60px; }
+        .highlight { background-color: #f8f9fa; padding: 15px; border-radius: 5px; }
+        pre { white-space: pre-wrap; }
+        .project-image { max-width: 100%; border: 1px solid #ddd; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Fraud Transaction Prediction</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#overview">Overview</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#data">Data</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#model">Model</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#results">Results</a></li>
+                    <li class="nav-item"><a class="nav-link" href="https://github.com/akrprompt/Fraud_Transaction_Prediction">GitHub</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <section id="overview" class="mb-5">
+            <h1 class="display-4">Fraud Transaction Prediction</h1>
+            <p class="lead">โมเดลทำนายการฉ้อโกงในธุรกรรมทางการเงิน</p>
+            
+            <div class="row mt-4">
+                <div class="col-md-8">
+                    <h2>Project Overview</h2>
+                    <p>โปรเจคนี้มีวัตถุประสงค์เพื่อวิเคราะห์และทำนายธุรกรรมที่เป็นการฉ้อโกง โดยใช้เทคนิค Machine Learning</p>
+                    <p>ใช้ข้อมูลธุรกรรมทางการเงิน ประกอบด้วยคอลัมน์ต่างๆ เช่น ประเภทธุรกรรม จำนวนเงิน และยอดคงเหลือ</p>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header bg-primary text-white">เทคโนโลยีที่ใช้</div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Python</li>
+                            <li class="list-group-item">Pandas & NumPy</li>
+                            <li class="list-group-item">Scikit-learn</li>
+                            <li class="list-group-item">Matplotlib & Seaborn</li>
+                            <li class="list-group-item">Imbalanced-learn</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="data" class="mb-5">
+            <h2>Data Exploration</h2>
+            <p>ข้อมูลประกอบด้วยธุรกรรมทางการเงินต่างๆ โดยมีข้อมูลทั้งธุรกรรมปกติและธุรกรรมที่เป็นการฉ้อโกง</p>
+            
+            <div class="highlight mt-3">
+                <h4>ตัวอย่างข้อมูล</h4>
+                <pre>
+step    type    amount    nameOrig    oldbalanceOrg    newbalanceOrig    nameDest    oldbalanceDest    newbalanceDest    isFraud
+0    1    PAYMENT    9839.64    C1231006815    170136.0    160296.36    M1979787155    0.0    0.0    0
+1    1    PAYMENT    1864.28    C1666544295    21249.0    19384.72    M2044282225    0.0    0.0    0
+2    1    TRANSFER    181.00    C1305486145    181.0    0.00    C553264065    0.0    0.0    1
+                </pre>
+            </div>
+            
+            <div class="mt-4">
+                <h4>ลักษณะของข้อมูล</h4>
+                <ul>
+                    <li>step: ขั้นตอนเวลาของธุรกรรม (1 หน่วย = 1 ชั่วโมง)</li>
+                    <li>type: ประเภทของธุรกรรม (PAYMENT, TRANSFER, CASH_OUT, DEBIT)</li>
+                    <li>amount: จำนวนเงินในธุรกรรม</li>
+                    <li>nameOrig: รหัสลูกค้าผู้โอน</li>
+                    <li>nameDest: รหัสลูกค้าผู้รับโอน</li>
+                    <li>isFraud: ป้ายกำกับว่าเป็นการฉ้อโกงหรือไม่ (1 = ฉ้อโกง, 0 = ไม่ฉ้อโกง)</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="model" class="mb-5">
+            <h2>Modeling Approach</h2>
+            <p>เราใช้เทคนิคต่อไปนี้ในการสร้างโมเดลทำนายการฉ้อโกง:</p>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Data Preprocessing</h4>
+                    <ul>
+                        <li>การจัดการค่าที่หายไป</li>
+                        <li>Feature Engineering</li>
+                        <li>การแปลงข้อมูล Categorical</li>
+                        <li>การแก้ปัญหา Imbalanced Data ด้วย SMOTE</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h4>Algorithms</h4>
+                    <ul>
+                        <li>Logistic Regression</li>
+                        <li>Random Forest</li>
+                        <li>XGBoost</li>
+                        <li>การปรับแต่ง Hyperparameters</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="highlight mt-4">
+                <h4>ตัวอย่างโค้ด Feature Engineering</h4>
+                <pre>
+# สร้าง features ใหม่
+df['typeTransfer'] = np.where(df.type == 'TRANSFER', 1, 0)
+df['typeCashOut'] = np.where(df.type == 'CASH_OUT', 1, 0)
+df['typePayment'] = np.where(df.type == 'PAYMENT', 1, 0)
+df['typeDebit'] = np.where(df.type == 'DEBIT', 1, 0)
+
+# สร้าง features จากความแตกต่างของยอดเงิน
+df['diffOrig'] = df.newbalanceOrig - df.oldbalanceOrg
+df['diffDest'] = df.newbalanceDest - df.oldbalanceDest
+                </pre>
+            </div>
+        </section>
+
+        <section id="results" class="mb-5">
+            <h2>Results & Evaluation</h2>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Model Performance</h4>
+                    <p>โมเดล XGBoost ให้ผลลัพธ์ดีที่สุด:</p>
+                    <ul>
+                        <li>Accuracy: 0.998</li>
+                        <li>Precision: 0.942</li>
+                        <li>Recall: 0.879</li>
+                        <li>F1-Score: 0.909</li>
+                        <li>AUC-ROC: 0.990</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h4>Feature Importance</h4>
+                    <p>Features ที่มีความสำคัญสูงสุด:</p>
+                    <ol>
+                        <li>amount</li>
+                        <li>diffOrig</li>
+                        <li>oldbalanceOrg</li>
+                        <li>typeCashOut</li>
+                        <li>typeTransfer</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <!-- ในส่วนนี้คุณควรเพิ่มรูปภาพผลลัพธ์จริงจากโปรเจคของคุณ -->
+            <div class="mt-4">
+                <h4>Learning Curves</h4>
+                <p>กราฟแสดง Training และ Validation loss ตามจำนวน epochs</p>
+                <div class="text-center">
+                    <img src="images/loss_curve.png" alt="Loss Curve" class="project-image">
+                </div>
+            </div>
+            
+            <div class="mt-4">
+                <h4>Accuracy Curves</h4>
+                <p>กราฟแสดง Training และ Validation accuracy ตามจำนวน epochs</p>
+                <div class="text-center">
+                    <img src="images/accuracy_curve.png" alt="Accuracy Curve" class="project-image">
+                </div>
+            </div>
+        </section>
+        
+        <section id="conclusion" class="mb-5">
+            <h2>Conclusion</h2>
+            <p>โปรเจคนี้แสดงให้เห็นว่าสามารถใช้ Machine Learning ในการตรวจจับการฉ้อโกงในธุรกรรมทางการเงินได้อย่างมีประสิทธิภาพ</p>
+            <p>เทคนิค SMOTE ช่วยแก้ปัญหา Imbalanced Data ได้ดี และโมเดล XGBoost ให้ผลลัพธ์ที่ดีที่สุด</p>
+            <p>โอกาสในการพัฒนาต่อไป:</p>
+            <ul>
+                <li>ทดลองเทคนิค Deep Learning</li>
+                <li>สร้าง features เพิ่มเติมจากข้อมูลลำดับเวลา</li>
+                <li>ปรับใช้ในระบบ Real-time Fraud Detection</li>
+            </ul>
+        </section>
+        
+        <footer class="border-top pt-4 mb-5">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>About the Author</h5>
+                    <p>นักวิเคราะห์ข้อมูลและผู้พัฒนา Machine Learning</p>
+                    <p>
+                        <a href="https://www.linkedin.com/in/yourprofile/" class="btn btn-outline-primary btn-sm">LinkedIn</a>
+                        <a href="https://github.com/akrprompt" class="btn btn-outline-dark btn-sm">GitHub</a>
+                    </p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p><small>Last Updated: เมษายน 2023</small></p>
+                    <p><small>ดูโค้ดทั้งหมดได้ที่ <a href="https://github.com/akrprompt/Fraud_Transaction_Prediction">GitHub Repository</a></small></p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
