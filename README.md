@@ -3,7 +3,7 @@
 ## Overview
 This repository contains a machine learning project focused on detecting fraudulent financial transactions using advanced resampling techniques and classification algorithms.
 
-- Tackles the challenge of highly imbalanced data (only 0.172% fraudulent transactions)
+- Tackles the challenge of highly imbalanced data (only 0.13% fraudulent transactions)
 - Implements multiple resampling approaches (Undersampling, Oversampling, SMOTE, ADASYN)
 - Compares performance of Decision Tree, XGBoost and Logistic Regression models
 
